@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "5b274179-2d34-4333-811c-59e742caad6e",
+		"name": "moea",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23287982"
+	},
+	"item": [
+		{
+			"name": "Subsidiary logic API (Flask)",
+			"item": [
+				{
+					"name": "Get text embeddings",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"texts\": [\r\n        \"Об'єктно-орієнтоване програмування\",\r\n        \"Комп'ютерні мережі та безпека\",\r\n        \"Вступ до інженерії програмного забезпечення\",\r\n        \"A.1. Аналіз потреб користувачів та розробка специфікацій вимог.\",\r\n        \"B.3. Проектування та архітектура інформаційних систем.\",\r\n        \"C.2. Управління інформаційною безпекою та захистом даних.\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5001/api/bert/embed",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"bert",
+								"embed"
+							],
+							"query": [
+								{
+									"key": "texts",
+									"value": "[\"A\",\"B\"]",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get recognized documet data (OCR)",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Desktop/Сапронов_магістр_додаток_оцінки.pdf"
+								},
+								{
+									"key": "config",
+									"value": "{}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "http://0.0.0.0:5001/api/ocr/process"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Main API (Nest)",
+			"item": [
+				{
+					"name": "Competence",
+					"item": [
+						{
+							"name": "Get competence by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence/1abc9224-f3f6-47df-aaf2-7db1ba34fbac"
+							},
+							"response": []
+						},
+						{
+							"name": "Get competences",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete competence (for admin)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence/7d487e44-ec27-4f1b-9fe3-2aa3edf0d6c1"
+							},
+							"response": []
+						},
+						{
+							"name": "Change competence (for admin)",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "i am willing man",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "description",
+											"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et felis quis ipsum tempor interdum. Cras ac elementum dolor. Integer fringilla turpis tristique elit varius gravida. Sed sit amet facilisis arcu. Aenean nec lacus sollicitudin lectus scelerisque pellentesque nec a magna. Morbi non tempor lectus. Quisque fermentum viverra massa at maximus. Integer feugiat congue felis sed venenatis. Sed commodo mattis pharetra. Ut sit amet porta enim. In semper nulla neque, quis tristique turpis tempor vel. Vestibulum suscipit orci et lorem ultricies, scelerisque vehicula erat vehicula. Sed vehicula tincidunt mollis. Nam tempor, ipsum et rutrum bibendum, libero orci luctus dui, id vestibulum neque nisi vitae odio. In vestibulum sodales pulvinar. Ut lobortis, mauris nec efficitur suscipit, tortor dolor eleifend leo, nec viverra mi mauris ut magna.\n\nSuspendisse vitae nunc nec ante cursus ultrices. Pellentesque ac suscipit sem, at consequat erat. Mauris commodo lacus vel velit sagittis vestibulum. Fusce varius euismod urna in ornare. Fusce pellentesque metus id libero feugiat maximus. Praesent in quam ligula. Proin est ex, pharetra eu magna eget, elementum rutrum ligula.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi at enim sapien. In dictum ut ligula sed consectetur. Proin efficitur, tellus ut luctus vulputate, nulla dui euismod enim, vitae iaculis dui urna sit amet sem. Proin id sodales est. Nulla facilisi.\n\nVestibulum condimentum dictum turpis vel tincidunt. Cras egestas ex nec pretium tempus. Nam sed auctor tortor. Proin lobortis metus ipsum, vitae interdum lacus ultrices vel. Nunc in lorem in sapien consequat sollicitudin. Maecenas et erat enim. Suspendisse pulvinar nec dui venenatis venenatis. Vivamus nec est vel erat viverra mattis eget tincidunt libero. Nulla a nunc sed nunc interdum mattis a ac nulla. Nulla ultricies vitae dui id pretium. Duis mauris velit, mollis ut aliquet at, aliquet et tellus. Donec et est accumsan, porttitor lectus at, tincidunt lorem.\n\nUt id nisi in libero sodales tincidunt quis at justo. Ut sed ante accumsan, condimentum felis eu, convallis dui. Donec volutpat gravida vehicula. Maecenas vitae odio pharetra, luctus ipsum sed, tristique diam. Sed interdum odio nunc, sit amet consequat sapien tristique vitae. Vivamus et nunc non eros commodo bibendum. Vestibulum nec ligula consequat, hendrerit lorem ut, euismod diam. Aliquam erat purus, gravida consectetur consectetur dignissim, auctor convallis sem. Vivamus semper ultricies sem, nec pellentesque ex consectetur vulputate. Suspendisse vulputate tincidunt mi, at facilisis nisl.\n\nUt vel urna lobortis, ultrices turpis sit amet, pharetra felis. Cras tempor commodo lobortis. Ut sit amet quam tincidunt, feugiat metus quis, aliquam purus. Curabitur ut sem a odio lobortis iaculis. Interdum et malesuada fames ac ante ipsum primis in faucibus. In commodo lacus eu ligula vehicula, pretium rhoncus orci faucibus. Sed condimentum, ante feugiat suscipit pharetra, risus dolor auctor ligula, at laoreet turpis eros non ligula. Maecenas scelerisque lorem sit amet bibendum iaculis. Integer mattis tortor nec diam mollis, et lacinia dolor blandit. Nullam tempor eros vel luctus rhoncus. Integer lectus sapien, blandit a tempor quis, eleifend ac ipsum. Duis semper, urna quis porta volutpat, risus est bibendum nisi, sit amet ultrices magna lorem eget lorem. Nullam tristique tortor in porttitor tempus. Nam pretium, sem a cursus congue, mi tellus mattis lacus, eu vehicula risus dui sed tellus.\n\nAliquam in congue nulla, tempus rhoncus quam. Ut a nunc nibh. Nulla eget interdum arcu. Nullam diam ante, porttitor et congue commodo, luctus et tortor. Phasellus ac nulla tortor. Vestibulum elementum, ex et lacinia pellentesque, odio felis facilisis mi, ac facilisis dui nulla in nibh. Vestibulum pharetra sem nibh, et vestibulum tellus tempus iaculis. Ut iaculis augue non dui ultrices convallis. Morbi vel erat laoreet, suscipit dolor pharetra, elementum justo. Vestibulum non lorem quis dolor hendrerit laoreet vel at sem.\n\nCras venenatis neque eget libero accumsan posuere condimentum vel ex. Etiam sed quam consectetur, pulvinar justo ut, dictum quam. Phasellus pellentesque rutrum mauris, at ullamcorper metus aliquam nec. Maecenas commodo dolor in ex consectetur, et pellentesque mi elementum. Aenean non mauris vitae justo sagittis posuere. Nullam ornare, quam id maximus feugiat, tellus sapien tincidunt sem, quis scelerisque quam felis vitae augue. Phasellus et blandit sem. Aliquam at fringilla libero, id condimentum felis. Aliquam in orci a ipsum mollis vestibulum. Nunc cursus consequat iaculis.\n\nAliquam pretium est id venenatis malesuada. Nulla dapibus vehicula lectus iaculis elementum. Praesent non imperdiet justo. Maecenas eleifend ex nisl. Aenean non quam nec urna porttitor tristique. Nam id euismod nisl, vel varius est. Ut sodales gravida leo, nec dapibus nulla accumsan quis. Curabitur a faucibus neque, ac blandit sapien. Aliquam a pharetra dui. Cras ornare massa quam, a placerat orci consectetur id. Aenean rhoncus elit eget libero congue pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.\n\nAliquam lobortis quam suscipit urna feugiat, sed vulputate diam viverra. Nam sem nulla, posuere eget enim vel, fermentum dignissim sapien. Etiam interdum neque sed leo euismod interdum. Aenean pulvinar ante nec lectus vehicula egestas posuere a risus. Vestibulum efficitur magna mi, quis consequat augue molestie ac. Nulla scelerisque ligula eget leo congue porta. Ut in mollis nisl. Aenean posuere eros nulla. Praesent posuere lectus eget odio elementum, ac tempor nisl tempus. Vivamus dignissim condimentum nisi, sed dapibus ante egestas ac.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "code",
+											"value": "test23",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://0.0.0.0:3001/api/competence/fa7b9a2f-836f-477e-aa87-15aefcbf140c"
+							},
+							"response": []
+						},
+						{
+							"name": "Create competence (for admin)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Information Systems Governances222",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Defines, deploys and controls the m222anagement of information systems and services and data in line with the business imperatives. Takes into account all internal and external parameters such as legislation and industry standard compliance to influence risk management and resource deployment to achieve balanced business benefit.",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "test",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://0.0.0.0:3001/api/competence"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Sign Up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "login",
+											"value": "mukgerinssssd",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "pashdan1339@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Sug@r1337",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://0.0.0.0:3001/api/auth/signup"
+							},
+							"response": []
+						},
+						{
+							"name": "Sign In",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "loginOrEmail",
+											"value": "mukgerinssssd",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Sug@r1337",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": "http://0.0.0.0:3001/api/auth/signin"
+							},
+							"response": []
+						},
+						{
+							"name": "Sign Out",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/auth/signout"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User profile",
+					"item": [
+						{
+							"name": "Change profile",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "login",
+											"value": "matatasor",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Sug@r1337",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://0.0.0.0:3001/api/auth/profile",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"auth",
+										"profile"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "salah",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/auth/profile"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete profile",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/auth/profile"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Competence level",
+					"item": [
+						{
+							"name": "Get competence level by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence-level/ea2707b4-e4f2-450f-8831-813b665f218b"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete competence level by id (for admin)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence-level/ea2707b4-e4f2-450f-8831-813b665f218b"
+							},
+							"response": []
+						},
+						{
+							"name": "Create competence level (for admin)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"competenceId\": \"ba8ffc91-845f-4ad4-88c0-55eb46353a44\",\r\n    \"proficiencyLevel\": 2,\r\n    \"description\": \"Cheeeeeeeeeeeeeeeeck123123123123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://0.0.0.0:3001/api/competence-level"
+							},
+							"response": []
+						},
+						{
+							"name": "Change competence level (for admin)",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"2311111111111111111111111111111111111111111111111111111111111111\",\r\n    \"proficiencyLevel\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://0.0.0.0:3001/api/competence-level/ea2707b4-e4f2-450f-8831-813b665f218b"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "System config (for admin)",
+					"item": [
+						{
+							"name": "Get system config variable by key (for admin)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/system-config/similarityThreshold"
+							},
+							"response": []
+						},
+						{
+							"name": "Update system config variable by key (for admin)",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"value\": \"0.55\",\r\n    \"description\": \"sdadasdasdasdasd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://0.0.0.0:3001/api/system-config/similarityThreshold"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Competence profile",
+					"item": [
+						{
+							"name": "Get competence profile by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence-profile/06d5c91a-5308-4272-bb0c-6febfed93c85"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all generated competence profiles for user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence-profile/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get last generated competence profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/competence-profile/lastGenerated"
+							},
+							"response": []
+						},
+						{
+							"name": "Generate competence profile",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/ASUS/Desktop/Сапронов_магістр_додаток_оцінки.pdf"
+										}
+									]
+								},
+								"url": "http://0.0.0.0:3001/api/competence-profile/generate"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Document",
+					"item": [
+						{
+							"name": "Get all user documents info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/document"
+							},
+							"response": []
+						},
+						{
+							"name": "Get document info by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://0.0.0.0:3001/api/document/f9b5116f-4b0e-4052-b043-0d5eb8831871"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
